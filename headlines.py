@@ -11,9 +11,21 @@ RSS_FEEDS = {
     
 
 @app.route("/")
-@app.route("/<publication>")
+@app.route("/bbc")
+def bbc():
+    return get_news('bbc')
 
-def get_news(publication="bbc"):
+@app.route("/world")
+def world():
+    return get_news('world')
+
+@app.route("/tech")
+def tech():
+    return get_news('tech')
+
+
+
+def get_news(publication):
     feed = feedparser.parse(RSS_FEEDS[publication])
     first_article = feed['entries'][0]
     return """
